@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function calcularCambio() {
+            const de = document.querySelector('input[name="de"]:checked').value;
+            const a = document.querySelector('input[name="a"]:checked').value;
+            const monto = parseFloat(document.getElementById("monto").value);
+
+            if (isNaN(monto)) {
+                alert("Por favor, ingresa un monto válido.");
+                return;
+            }
+
+            if (de === "dollar" && a === "soles") {
+                rate = 3.71;
+            } else if (de === "dollar" && a === "euro") {
+                rate = 0.94;
+            } else if (de === "soles" && a === "dollar") {
+                rate = 1 / 3.71; 
+            } else if (de === "soles" && a === "euro") {
+                rate = 0.94 / 3;
+            } else if (de === "euro" && a === "dollar") {
+                rate = 1.07;
+            } else if (de === "euro" && a === "soles") {
+                rate = 1.07 * 3.71; 
+            } else {
+                alert("OPERACIÓN INVÁLIDA.");
+                return;
+            }
+
+            const total = monto * rate;
+            alert(`Total a recibir: ${total.toFixed(2)}`);
+        }
+    </script>
+</head>
+<body>
+    <h1>Casa de Cambio</h1>
+    <form id="cambioForm">
+        <label>Selecciona la moneda a cambiar:</label><br>
+        <input type="radio" id="dollarDe" name="de" value="dollar">
+        <label for="dollarDe">Dólar</label>
+        <input type="radio" id="solesDe" name="de" value="soles">
+        <label for="solesDe">Soles</label>
+        <input type="radio" id="euroDe" name="de" value="euro">
+        <label for="euroDe">Euros</label>
+        <br><br>
+        
+        <label>Selecciona la moneda a recibir:</label><br>
+        <input type="radio" id="dollarA" name="a" value="dollar">
+        <label for="dollarA">Dólar</label>
+        <input type="radio" id="solesA" name="a" value="soles">
+        <label for="solesA">Soles</label>
+        <input type="radio" id="euroA" name="a" value="euro">
+        <label for="euroA">Euros</label>
+        <br><br>
+        <label for="monto">Cantidad a cambiar:</label>
+        <input type="number" id="monto" min="0">
+        <br><br>
+        <button type="button" onclick="calcularCambio()">Calcular Cambio</button>
+    </form>
+</body>
+</html>
